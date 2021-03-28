@@ -8,6 +8,16 @@
     <DocumentationFile>SGM.ServicosAoCidadao.Api.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="SGM.ServicosAoCidadao.Api.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SGM.ServicosAoCidadao.Api.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 	<ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
