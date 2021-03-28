@@ -15,10 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Setup do ambiente .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x    
+#    - name: Setup do ambiente .NET
+#      uses: actions/setup-dotnet@v1
+#      with:
+#        dotnet-version: 5.0.x    
     
 #    - name: Restore dependencies
 #      run: dotnet restore
@@ -51,7 +51,7 @@ jobs:
       env:
         ECR_REGISTRY: 137031771149.dkr.ecr.us-east-1.amazonaws.com
         ECR_REPOSITORY: contador-api
-        IMAGE_TAG: ${{ github.sha }}
+        IMAGE_TAG: ${{ github.run_number }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./src/SGM.ServicosAoCidadao.Api/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
