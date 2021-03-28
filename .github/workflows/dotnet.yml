@@ -37,6 +37,13 @@ jobs:
         cd ${{ github.workspace }}/out
         zip -r ${{ github.workspace }}/out.zip *
         
+    - name: Configurando Credenciais da AWS
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: AKIAR7Z524QG3GVVKKFR
+        aws-secret-access-key: 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
+        aws-region: us-east-1
+        
     - name: Amazon ECR "Login" Action for GitHub Actions
       uses: aws-actions/amazon-ecr-login@v1
 
