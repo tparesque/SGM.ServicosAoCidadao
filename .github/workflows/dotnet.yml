@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch: #para poder rodar manualmente
+  workflow_dispatch: # tag para poder rodar manualmente
 
 jobs:
   Build_da_Aplicacao:
@@ -20,17 +20,17 @@ jobs:
       with:
         dotnet-version: 5.0.x    
     
-    - name: Restore dependencies
-      run: dotnet restore
+#    - name: Restore dependencies
+#      run: dotnet restore
     
-    - name: Build
-      run: dotnet build --no-restore
+#    - name: Build
+#      run: dotnet build --no-restore
     
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+#    - name: Test
+#      run: dotnet test --no-build --verbosity normal
       
-    - name: Publish
-      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
+#    - name: Publish
+#      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
       
 #    - name: Zip package
 #      run: |
@@ -40,8 +40,8 @@ jobs:
     - name: Configurando Credenciais da AWS
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: AKIAR7Z524QG3GVVKKFR
-        aws-secret-access-key: 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
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
         
     - name: Login no Amazon ECR
