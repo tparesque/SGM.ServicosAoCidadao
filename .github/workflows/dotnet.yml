@@ -56,6 +56,9 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./src/SGM.ServicosAoCidadao.Api/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
+    - name: Exibe os arquivos na pasta # ajuda a debugar
+      run: ls -R
+        
     - name: Cria o arquivo Amazon ECS Task Definition
       id: render-web-container
       uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -63,9 +66,6 @@ jobs:
         task-definition: task-definition.json
         container-name: web
         image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-    - name: List files # ajuda a debugar
-      run: ls -R
 
     - name: Deploy para o serviço Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
