@@ -8,7 +8,7 @@ on:
   workflow_dispatch: #para poder rodar manualmente
 
 jobs:
-  Build da Aplicação:
+  Build_da_Aplicacao:
 
     runs-on: ubuntu-latest
 
