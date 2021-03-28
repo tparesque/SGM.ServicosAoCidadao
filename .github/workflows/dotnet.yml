@@ -18,24 +18,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
-    
-    - name: Restore dependencies
-      run: dotnet restore
-    
-    - name: Build
-      run: dotnet build --no-restore
-    
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-      
-    - name: Publish
-      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
-      
-    - name: Zip package
-      run: |
-        cd ${{ github.workspace }}/out
-        zip -r ${{ github.workspace }}/out.zip *
+        dotnet-version: 5.0.x    
         
     - name: Configurando Credenciais da AWS
       uses: aws-actions/configure-aws-credentials@v1
@@ -53,7 +36,7 @@ jobs:
         ECR_REPOSITORY: contador-api
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ${{ github.workspace }}/src/SGM.ServicosAoCidadao.Api/Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /src/SGM.ServicosAoCidadao.Api/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
