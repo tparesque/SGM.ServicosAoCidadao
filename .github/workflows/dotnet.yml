@@ -64,6 +64,9 @@ jobs:
         container-name: web
         image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+    - name: List files # ajuda a debugar
+      run: ls -R
+
     - name: Deploy para o serviço Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
