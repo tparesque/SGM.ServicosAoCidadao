@@ -70,7 +70,7 @@ jobs:
       with:
         task-definition: task-definition.json
         container-name: ContadorContainerDefinition
-        image: ${{ steps.build-image.outputs.image }} #$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Deploy para o serviço Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
