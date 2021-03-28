@@ -68,7 +68,7 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: task-definition.json
-        container-name: web
+        container-name: ContadorContainerDefinition
         image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Deploy para o serviço Amazon ECS
@@ -77,6 +77,8 @@ jobs:
         task-definition: ${{ steps.render-web-container.outputs.task-definition }}
         service: ContadorService
         cluster: ContadorCluster
+
+
 
 
 
