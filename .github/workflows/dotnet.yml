@@ -56,20 +56,20 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./src/SGM.ServicosAoCidadao.Api/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
-    - name: Download task def
-      run: |
-        aws ecs describe-task-definition --task-definition ContadorTaskDefinition --query taskDefinition > task-definition.json
+#    - name: Download task def
+#      run: |
+#        aws ecs describe-task-definition --task-definition ContadorTaskDefinition --query taskDefinition > task-definition.json
         
     - name: List all the files in the working directory # ajuda a debugar
       run: ls -R
         
-    - name: Cria o arquivo Amazon ECS Task Definition
+    - name: Preenche o Id da Imagem no ECS Task Definition
       id: render-web-container
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: task-definition.json
         container-name: ContadorContainerDefinition
-        image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        image: ${{ steps.build-image.outputs.image }} #$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Deploy para o serviço Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
