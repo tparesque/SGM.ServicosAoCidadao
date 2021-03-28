@@ -12,6 +12,7 @@ namespace SGM.ServicosAoCidadao.Api.Configurations
 			var connection = configuration?.GetSection("MessageQueueConnection")?["MessageBus"];
 			if (string.IsNullOrEmpty(connection))
 			{
+				Console.WriteLine("URL do MessageQueueConnection.MessageBus não foi encontrado.");
 				throw new ArgumentNullException();
 			}
 
