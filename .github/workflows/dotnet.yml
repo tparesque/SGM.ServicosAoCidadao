@@ -37,33 +37,31 @@ jobs:
 #        cd ${{ github.workspace }}/out
 #        zip -r ${{ github.workspace }}/out.zip *
     
-    - name: Configurando Credenciais da AWS
+
+
+
+    - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
-        
-    - name: Login no Amazon ECR
+
+    - name: Login to Amazon ECR
+      id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-      
-    - name: Build da imagem, tag, e push da imagem para o Amazon ECR
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
       env:
-        ECR_REGISTRY: 137031771149.dkr.ecr.us-east-1.amazonaws.com
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: contador-api
         IMAGE_TAG: ${{ github.run_number }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./src/SGM.ServicosAoCidadao.Api/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-        
-#    - name: Download task def
-#      run: |
-#        aws ecs describe-task-definition --task-definition ContadorTaskDefinition --query taskDefinition > task-definition.json
-        
-    - name: List all the files in the working directory # ajuda a debugar
-      run: ls -R
-        
+
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -78,9 +76,4 @@ jobs:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: ContadorService
         cluster: ContadorCluster
-
-
-
-
-
-
+        wait-for-service-stability: true
