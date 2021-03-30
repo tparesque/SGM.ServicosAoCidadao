@@ -18,7 +18,7 @@ namespace SGM.ServicosAoCidadao.Api.Controllers
 {
 	[Authorize]
 	[ApiController]
-	[Route("/api/solicitacoes")]
+	[Route("/api/servicos-ao-cidadao/solicitacoes")]
 	public class SolicitacaoIsencaoIptuController : ControllerBase
 	{
 		private readonly IMediatorHandler _mediator;
