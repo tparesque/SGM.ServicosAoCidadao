@@ -10,6 +10,7 @@ namespace SGM.ServicosAoCidadao.Api.Controllers
 	[Route("/api/servicos-ao-cidadao/health-check")]
 	public class HealthCheck : Controller
 	{
+		[HttpGet]
 		public IActionResult Index()
 		{
 			return Ok();
