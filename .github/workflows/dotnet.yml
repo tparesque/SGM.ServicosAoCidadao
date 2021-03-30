@@ -1,4 +1,4 @@
-name: .NET - Deploy AWS ECS
+name: SGM.ServicosAoCidadao - Deploy AWS ECS
 
 on:
   push:
@@ -14,31 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-#    - name: Setup do ambiente .NET
-#      uses: actions/setup-dotnet@v1
-#      with:
-#        dotnet-version: 5.0.x    
-    
-#    - name: Restore dependencies
-#      run: dotnet restore
-    
-#    - name: Build
-#      run: dotnet build --no-restore
-    
-#    - name: Test
-#      run: dotnet test --no-build --verbosity normal
-      
-#    - name: Publish
-#      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
-      
-#    - name: Zip package
-#      run: |
-#        cd ${{ github.workspace }}/out
-#        zip -r ${{ github.workspace }}/out.zip *
-    
-
-
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -55,10 +30,10 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: contador-api
+        ECR_REPOSITORY: sgm-api-servicos-ao-cidadao
         IMAGE_TAG: ${{ github.run_number }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./src/SGM.ServicosAoCidadao.Api/Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./src/SGM.ServicosAoCidadao/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
@@ -67,13 +42,13 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: task-definition.json
-        container-name: ContadorContainerDefinition
+        container-name: sgm-cidadao-container
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ContadorService
-        cluster: ContadorCluster
+        service: sgm-cidadao-service
+        cluster: sgm-cluster
         wait-for-service-stability: true
