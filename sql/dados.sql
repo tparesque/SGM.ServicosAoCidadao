@@ -1,0 +1,12 @@
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Ativo')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Pendente')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Finalizado')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Cancelado')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Inativo')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Solicitação Efetuada')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Aprovada')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Concluida')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Em Andamento')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Deferido')
+INSERT INTO [dbo].[Situacao] ([Nome]) VALUES ('Indeferido')
+GO

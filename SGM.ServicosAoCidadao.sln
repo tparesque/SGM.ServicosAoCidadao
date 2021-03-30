@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGM.ServicosAoCidadao.Repos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGM.ServicosAoCidadao.Core", "src\SGM.ServicosAoCidadao.Core\SGM.ServicosAoCidadao.Core.csproj", "{A9621408-162A-4387-90AD-EFE0D09F7C50}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{3EC64B43-0D69-469F-AEFF-01EBA04363F6}"
+	ProjectSection(SolutionItems) = preProject
+		sql\dados.sql = sql\dados.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
