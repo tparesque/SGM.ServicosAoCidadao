@@ -25,7 +25,7 @@ namespace SGM.ServicosAoCidadao.Api.Services
 
 		protected override Task ExecuteAsync(CancellationToken stoppingToken)
 		{
-			_messageBus.SubscribeAsync<IsencaoIptuProcessadoIntegrationEvent>(solicitacao => ProcessarSolicitacao(solicitacao));
+			_messageBus.Subscribe<IsencaoIptuProcessadoIntegrationEvent>(solicitacao => ProcessarSolicitacao(solicitacao));
 
 			return Task.CompletedTask;
 		}

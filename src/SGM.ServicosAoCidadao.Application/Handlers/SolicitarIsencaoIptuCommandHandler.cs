@@ -69,7 +69,7 @@ namespace SGM.ServicosAoCidadao.Application.Handlers
 				await _context.SaveChangesAsync();
 
 				var solicitacaoEvent = new IsencaoIptuSolicitadoIntegrationEvent(solicitacaoIsencao.SolicitacaoId, solicitacaoIsencao.MatriculaImovel);
-				await _bus.PublishAsync(solicitacaoEvent);
+				await _bus.Publish(solicitacaoEvent);
 
 			}
 			catch (Exception e)
