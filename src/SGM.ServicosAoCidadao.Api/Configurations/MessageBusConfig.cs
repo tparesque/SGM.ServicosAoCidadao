@@ -9,14 +9,9 @@ namespace SGM.ServicosAoCidadao.Api.Configurations
 	{
 		public static void AddMessageBusConfiguration(this IServiceCollection services, IConfiguration configuration)
 		{
-			var connection = configuration?.GetSection("MessageQueueConnection")?["MessageBus"];
-			if (string.IsNullOrEmpty(connection))
-			{
-				Console.WriteLine("URL do MessageQueueConnection.MessageBus não foi encontrado.");
-				throw new ArgumentNullException();
-			}
+			services.Configure<RabbitMqConfigurations>(configuration.GetSection("MessageQueueConnection"));
 
-			services.AddSingleton<IMessageBus>(new MessageBus(connection));
+			services.AddSingleton<IMessageBus, MessageBusRabbit>();
 		}
 	}
 }

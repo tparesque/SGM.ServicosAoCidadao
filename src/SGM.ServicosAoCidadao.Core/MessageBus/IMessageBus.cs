@@ -10,7 +10,7 @@ namespace SGM.ServicosAoCidadao.Core.MessageBus
 
 		Task PublishAsync<T>(T message) where T : IntegrationEvent;
 
-		void SubscribeAsync<T>(string subscriptionId, Func<T, Task> onMessage) where T : class;
+		void SubscribeAsync<T>(Action<T> onMessage) where T : class;
 
 		#endregion
 	}
