@@ -12,7 +12,6 @@ namespace SGM.ServicosAoCidadao.Core.MessageBus
 
 		void SubscribeAsync<T>(string subscriptionId, Func<T, Task> onMessage) where T : class;
 
-
 		#endregion
 	}
 }
