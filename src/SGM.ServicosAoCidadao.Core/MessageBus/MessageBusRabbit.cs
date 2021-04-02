@@ -16,17 +16,19 @@ namespace SGM.ServicosAoCidadao.Core.MessageBus
 		private string _hostName;
 		private IConnection _connection;
 		private IModel _channel;
+		private int _port;
 
 		public MessageBusRabbit(IOptions<RabbitMqConfigurations> options)
 		{
 			_hostName = options.Value.HostName;
+			_port = options.Value.Port;
 
 			CriarConexao();
 		}
 
 		private void _connection_ConnectionShutdown(object sender, ShutdownEventArgs e)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void Dispose()
@@ -114,7 +116,8 @@ namespace SGM.ServicosAoCidadao.Core.MessageBus
 			{
 				var factory = new ConnectionFactory
 				{
-					HostName = _hostName
+					HostName = _hostName,
+					Port = _port
 				};
 
 				_connection = factory.CreateConnection();
