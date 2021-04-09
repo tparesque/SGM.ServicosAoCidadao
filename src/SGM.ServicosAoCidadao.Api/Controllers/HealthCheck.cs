@@ -15,7 +15,7 @@ namespace SGM.ServicosAoCidadao.Api.Controllers
 			return Ok();
 		}
 
-		[HttpGet("/machine-name")]
+		[HttpGet("machine-name")]
 		public IActionResult Informacoes()
 		{
 			return Json(new
