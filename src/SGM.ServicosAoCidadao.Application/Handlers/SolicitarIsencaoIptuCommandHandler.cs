@@ -63,8 +63,19 @@ namespace SGM.ServicosAoCidadao.Application.Handlers
 				UsuarioNome = command.UsuarioNome
 			};
 
+			var historicoSolicitacao = new HistoricoSolicitacao()
+			{
+				HistoricoSolicitacaoId = Guid.NewGuid(),
+				UsuarioAlteracaoId = command.UsuarioId,
+				UsuarioAlteracaoNome = command.UsuarioNome,
+				DataAlteracao = DateTime.Now,
+				SituacaoId = (int)ESituacao.SOLICITACAO_EFETUADA
+			};
+
 			try
 			{
+				solicitacaoIsencao.AdicionarHistorico(historicoSolicitacao);
+
 				_context.SolicitacaoIsencao.Add(solicitacaoIsencao);
 				await _context.SaveChangesAsync();
 

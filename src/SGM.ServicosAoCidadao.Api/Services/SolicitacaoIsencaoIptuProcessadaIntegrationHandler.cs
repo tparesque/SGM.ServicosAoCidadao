@@ -32,8 +32,6 @@ namespace SGM.ServicosAoCidadao.Api.Services
 
 		private async Task ProcessarSolicitacao(IsencaoIptuProcessadoIntegrationEvent integrationEvent)
 		{
-			Console.WriteLine("***** TESTE ***** SOLICITAÇÃO ISENÇÃO - " + integrationEvent.SituacaoSolicitacao);
-
 			var scope = _serviceProvider.CreateScope();
 			_repository = scope.ServiceProvider.GetRequiredService<ISolicitacaoIsencaoRepository>();
 
@@ -42,8 +40,8 @@ namespace SGM.ServicosAoCidadao.Api.Services
 			var historicoSolicitacao = new HistoricoSolicitacao()
 			{
 				HistoricoSolicitacaoId = Guid.NewGuid(),
-				UsuarioAlteracaoId = solicitacaoBanco.UsuarioId,
-				UsuarioAlteracaoNome = solicitacaoBanco.UsuarioNome,
+				UsuarioAlteracaoId = integrationEvent.UsuarioId,
+				UsuarioAlteracaoNome = integrationEvent.UsuarioNome,
 				DataAlteracao = DateTime.Now,
 				SituacaoId = solicitacaoBanco.SituacaoId
 			};
@@ -52,8 +50,6 @@ namespace SGM.ServicosAoCidadao.Api.Services
 
 			solicitacaoBanco.SituacaoId = integrationEvent.SituacaoSolicitacao == SituacaoSolicitacaoEnum.Deferido ? (int)ESituacao.DEFERIDO : (int)ESituacao.INDEFERIDO;
 			solicitacaoBanco.JustificativaPrefeitura = integrationEvent.Justificativa;
-			solicitacaoBanco.UsuarioNome = integrationEvent.UsuarioNome;
-			solicitacaoBanco.UsuarioId = integrationEvent.UsuarioId;
 
 			await _repository.Update(solicitacaoBanco);
 
