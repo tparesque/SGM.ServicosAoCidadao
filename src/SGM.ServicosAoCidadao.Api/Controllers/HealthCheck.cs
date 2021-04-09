@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Runtime.Versioning;
 
 namespace SGM.ServicosAoCidadao.Api.Controllers
 {
@@ -14,6 +13,17 @@ namespace SGM.ServicosAoCidadao.Api.Controllers
 		public IActionResult Index()
 		{
 			return Ok();
+		}
+
+		[HttpGet("/machine-name")]
+		public IActionResult Informacoes()
+		{
+			return Json(new
+			{
+				Environment.MachineName,
+				Sistema = Environment.OSVersion.VersionString,
+				TargetFramework = Assembly.GetEntryAssembly()?.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName
+			});
 		}
 	}
 }
