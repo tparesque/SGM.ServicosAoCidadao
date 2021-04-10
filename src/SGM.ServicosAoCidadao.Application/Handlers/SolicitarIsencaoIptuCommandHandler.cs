@@ -57,6 +57,7 @@ namespace SGM.ServicosAoCidadao.Application.Handlers
 				SolicitacaoId = Guid.NewGuid(),
 				DataCadastro = DateTime.Now,
 				MatriculaImovel = command.Matricula,
+				Observacao = command.Observacao,
 				TipoSolicitacao = TipoSolicitacaoEnum.IsencaoIptu,
 				SituacaoId = (int)ESituacao.SOLICITACAO_EFETUADA,
 				UsuarioId = command.UsuarioId,
